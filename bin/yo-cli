@@ -2,6 +2,8 @@
 'use strict';
 
 var program  = require('commander');
+var fs = require('fs');
+var http = require('http');
 
 //require('autocmdr/lib/completion')(program);
 
@@ -9,23 +11,32 @@ var program  = require('commander');
 program
 	.version('0.0.1');
 
-
 program
-	.on('*', function(name) {
-		console.log('\''+name+'\' is not a known command. See \'yo-cli --help\':');
-		program.outputHelp();
-		process.exit(1);
-	});
-
-program
+	.option('-t, --token', 'Set Yo API token')
 	.option('-a, --all', 'Yo all subscribers')
 	.option('-l, --link', 'Yo an image or link');
 
 program
 	.parse(process.argv);
 
-if (program.args.length < 1 ) {
-	console.log('No command specified. See \'yo-cli --help\':');
-	program.outputHelp();
-	process.exit(1);
+if (!program.args.length) {
+  program.outputHelp();
+  process.exit(1);
 }
+
+// if no ~/.yo-cli error
+// else make ~/.yo-cli and write api token to it
+
+
+var username = program.args[0];
+console.log(username);
+
+
+// make post request to Yo API endpoint
+
+// Yo
+// http://docs.justyo.co/v1.0/docs/testinput
+// YoAll
+// http://docs.justyo.co/v1.0/docs/yoall
+
+
