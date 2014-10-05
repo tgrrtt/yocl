@@ -1,0 +1,29 @@
+{
+  "name": "yo-cli",
+  "version": "0.0.1",
+  "description": "A CLI app for Yo",
+  "private": true,
+  "bin": {
+    "yo-cli": "./bin/yo-cli"
+  },
+  "scripts": {
+    "test": "mocha -R spec"
+  },
+  "author": {
+    "name": "Tyler Garrett",
+    "email": "jtgarrett123@gmail.com",
+    "url": "https://github.com/tgrrtt"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tgrrtt/yo-cli"
+  },
+  "license": "MIT",
+  "bugs": "https://github.com/tgrrtt/yo-cli/issues",
+  "dependencies": {
+    "commander": "~2.0.0",
+    "autocmdr": "~0.0.4"
+  },
+  "devDependencies": {
+  }
+}

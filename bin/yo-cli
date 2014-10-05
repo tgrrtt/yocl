@@ -1,0 +1,31 @@
+#!/usr/bin/env node
+'use strict';
+
+var program  = require('commander');
+
+//require('autocmdr/lib/completion')(program);
+
+
+program
+	.version('0.0.1');
+
+
+program
+	.on('*', function(name) {
+		console.log('\''+name+'\' is not a known command. See \'yo-cli --help\':');
+		program.outputHelp();
+		process.exit(1);
+	});
+
+program
+	.option('-a, --all', 'Yo all subscribers')
+	.option('-l, --link', 'Yo an image or link');
+
+program
+	.parse(process.argv);
+
+if (program.args.length < 1 ) {
+	console.log('No command specified. See \'yo-cli --help\':');
+	program.outputHelp();
+	process.exit(1);
+}
