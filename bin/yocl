@@ -1,0 +1,59 @@
+#!/usr/bin/env node
+'use strict';
+
+var program  = require('commander');
+var fs = require('fs-extended');
+var pwuid = require('pwuid');
+var http = require('http');
+var path = require('path');
+var yopath = path.join(pwuid().dir, '.yofile');
+
+//require('autocmdr/lib/completion')(program);
+program
+	.version('0.0.1');
+
+program
+	.option('-t, --token [value]', 'Set Yo API token')
+	.option('-a, --all', 'Yo all subscribers')
+	.option('-l, --link', 'Yo an image or link')
+  .option('-s, --subscribers', 'Get subscriber count');
+
+program
+	.parse(process.argv);
+
+
+// if token argument, write yofile
+console.log(program.args, program.args.length);
+if (program.token) {
+  fs.writeFileSync(yopath, program.token, {encoding: 'utf-8'});
+	console.log("Saved token!");
+	process.exit(0);
+}
+
+fs.ensureFileSync(yopath);
+
+var tokenFromFile = fs.readFileSync(yopath, {encoding: 'utf-8'});
+
+//if no yofile data, exit
+if (!tokenFromFile) {
+  console.log('Please save your token first');
+  program.outputHelp();
+  process.exit(1);
+}
+
+//if no other args, exit
+if (!program.token && program.args.length < 1) {
+	console.log('finnna exit');
+  program.outputHelp();
+  process.exit(1);
+}
+
+//figure out which param username is sent in as
+console.log(program.args.length);
+// else make post request to yo API
+
+
+// Yo
+// http://docs.justyo.co/v1.0/docs/testinput
+// YoAll
+// http://docs.justyo.co/v1.0/docs/yoall

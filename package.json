@@ -1,10 +1,10 @@
 {
-  "name": "yo-cli",
+  "name": "yocl",
   "version": "0.0.1",
   "description": "A CLI app for Yo",
   "private": true,
   "bin": {
-    "yo-cli": "./bin/yo-cli"
+    "yocl": "./bin/yocl"
   },
   "scripts": {
     "test": "mocha -R spec"
@@ -16,14 +16,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/tgrrtt/yo-cli"
+    "url": "https://github.com/tgrrtt/yocl"
   },
   "license": "MIT",
-  "bugs": "https://github.com/tgrrtt/yo-cli/issues",
+  "bugs": "https://github.com/tgrrtt/yocl/issues",
   "dependencies": {
+    "autocmdr": "~0.0.4",
     "commander": "~2.0.0",
-    "autocmdr": "~0.0.4"
+    "fs-extended": "^0.2.0",
+    "node-curl": "^0.3.3"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }

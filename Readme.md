@@ -1,19 +1,19 @@
-yo-cli
+yocl
 =============
 
 # Description
 
-A CLI app for Yo
+A CLI app for Yo.
 
 # Usage
 
-To install yo-cli from npm, run:
+To install yocl from npm, run:
 
 ```
-$ npm install -g yo-cli
+$ npm install -g yocl
 ```
 
-```node ./bin/yo-cli --help```
+```node ./bin/yocl --help```
 
 # License
 
