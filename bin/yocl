@@ -15,7 +15,7 @@ program
 program
 	.option('-t, --token [value]', 'Set Yo API token')
 	.option('-a, --all', 'Yo all subscribers')
-	.option('-l, --link', 'Yo an image or link')
+	.option('-l, --link [value]', 'Yo an image or link')
   .option('-s, --subscribers', 'Get subscriber count');
 
 program
@@ -25,7 +25,7 @@ program
 //console.log(program.args, program.args.length);
 if (program.token) {
   fs.writeFileSync(yopath, program.token, {encoding: 'utf-8'});
-	console.log("Saved token!");
+	console.log('Saved token!');
 	process.exit(0);
 }
 
@@ -41,17 +41,25 @@ if (!tokenFromFile) {
 }
 
 //if no other args, exit
-if (!program.token && program.args.length < 1) {
-	console.log('Finnna exit');
+if (!program.token && program.args.length < 1 && !program.all && !program.link) {
+	console.log('Please enter arguments correctly.');
   program.outputHelp();
   process.exit(1);
 }
 
 //figure out which param username is sent in as
 //console.log("about to yo:", program.args[0], "from key", tokenFromFile);
+var url = 'http://api.justyo.co/yo/';
 
-var url = "http://api.justyo.co/yo/";
-var params = "api_token="+ tokenFromFile + "&username=" + program.args[0];
+if (program.all) {
+	url = 'https://api.justyo.co/yoall/'
+}
+
+var params = 'api_token='+ tokenFromFile + '&username=' + program.args[0];
+
+if (program.link) {
+	params += '&link=' + program.link;	
+}
 
 var options = {
   url: url,
@@ -59,17 +67,21 @@ var options = {
 	data: params
 };
 
-curl.request(options, function(err, something) {
+curl.request(options, function(err){
 	if (err)	{
-		console.log("Failed to send Yo:", err)
+		console.log('Failed to send Yo:', err);
 		process.exit(1);
 	} else {
-		console.log("Sent a Yo to:",program.args[0]);
-		process.exit(0);
+		var finishStatement = 'Yo\'d ';
+		if (program.link) {
+		  finishStatement = 'Yo\'d a link to ';
+		}
+		if (program.all) {
+			finishStatement +='all subscribers.';
+		} else if (program.args[0]){
+			finishStatement += program.args[0];
+		}	
+		console.log(finishStatement);
+		process.exit(0);	
 	}
 });
-
-// Yo
-// http://docs.justyo.co/v1.0/docs/testinput
-// YoAll
-// http://docs.justyo.co/v1.0/docs/yoall
