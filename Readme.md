@@ -1,7 +1,5 @@
 # yocl
 
-## Description
-
 A CLI app for Yo. :godmode:
 
 ## Usage
