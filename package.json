@@ -23,8 +23,10 @@
   "dependencies": {
     "autocmdr": "~0.0.4",
     "commander": "~2.0.0",
+    "curlrequest": "^0.5.1",
     "fs-extended": "^0.2.0",
-    "node-curl": "^0.3.3"
+    "node-curl": "^0.3.3",
+    "shelljs": "^0.3.0"
   },
   "devDependencies": {}
 }
