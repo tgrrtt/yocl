@@ -1,11 +1,10 @@
-yocl
-=============
+# yocl
 
-# Description
+## Description
 
-A CLI app for Yo.
+A CLI app for Yo. :godmode:
 
-# Usage
+## Usage
 
 To install yocl from npm, run:
 
@@ -23,16 +22,16 @@ Before you can send Yos, you must set your api token. Get it from the [Yo Develo
     -V, --version        output the version number
     -t, --token [value]  Set Yo API token
     -a, --all            Yo all subscribers
-    -l, --link           Yo an image or link
+    -l, --link  [value]  Yo an image or link
     -s, --subscribers    Get subscriber count
     
 ```
-# License
+## License
 
 Copyright (c) 2014 Tyler Garrett
 
 [MIT License](http://en.wikipedia.org/wiki/MIT_License)
 
-# Acknowledgments
+## Acknowledgments
 
 Built using [generator-commader](https://github.com/Hypercubed/generator-commander).

@@ -10,7 +10,7 @@ var yopath = path.join(pwuid().dir, '.yofile');
 //require('autocmdr/lib/completion')(program);
 
 program
-	.version('0.0.6');
+	.version('0.0.7');
 
 program
 	.option('-t, --token [value]', 'Set Yo API token')
