@@ -62,10 +62,10 @@ var options = {
 curl.request(options, function(err, something) {
 	if (err)	{
 		console.log("Failed to send Yo:", err)
-		program.exit(1);
+		process.exit(1);
 	} else {
 		console.log("Sent a Yo to:",program.args[0]);
-		program.exit(0);
+		process.exit(0);
 	}
 });
 
