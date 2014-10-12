@@ -10,7 +10,7 @@ var yopath = path.join(pwuid().dir, '.yofile');
 //require('autocmdr/lib/completion')(program);
 
 program
-	.version('0.0.1');
+	.version('0.0.6');
 
 program
 	.option('-t, --token [value]', 'Set Yo API token')
@@ -41,47 +41,66 @@ if (!tokenFromFile) {
 }
 
 //if no other args, exit
-if (!program.token && program.args.length < 1 && !program.all && !program.link) {
+if (!program.token && program.args.length < 1 && !program.all && !program.link && !program.subscribers) {
 	console.log('Please enter arguments correctly.');
   program.outputHelp();
   process.exit(1);
 }
 
+// START API REQUESTS
+
+var url = 'http://api.justyo.co';
+var options = {};
+// if subscribers count get
+if (program.subscribers) {
+	url += '/subscribers_count/';
+	options.url = url;
+	options.method = 'GET';
+	options.data = 'api_token=' + tokenFromFile;	
+	curl.request(options, function(err, data){
+		// this functionality is currently broken on their end.
+		// therefore, I have no idea what actually comes back in the data.
+		// if it's a invalid token format error, it most likely means their api is still broken.
+		console.log(data);
+		process.exit(0);
+	});
+} else {
+	if (!program.all) {
+		url += '/yo/'
+	} else {
+		url += '/yoall/'
+	}
+
+	var params = 'api_token='+ tokenFromFile + '&username=' + program.args[0];
+
+	if (program.link) {
+		params += '&link=' + program.link;	
+	}
+
+	options = {
+	  url: url,
+		method: 'POST',
+		data: params
+	};
+
+	curl.request(options, function(err){
+		if (err)	{
+			console.log('Failed to send Yo:', err);
+			process.exit(1);
+		} else {
+			var finishStatement = 'Yo\'d ';
+			if (program.link) {
+			  finishStatement = 'Yo\'d a link to ';
+			}
+			if (program.all) {
+				finishStatement +='all subscribers.';
+			} else if (program.args[0]){
+				finishStatement += program.args[0];
+			}	
+			console.log(finishStatement);
+			process.exit(0);	
+		}
+	});	
+}
 //figure out which param username is sent in as
 //console.log("about to yo:", program.args[0], "from key", tokenFromFile);
-var url = 'http://api.justyo.co/yo/';
-
-if (program.all) {
-	url = 'https://api.justyo.co/yoall/'
-}
-
-var params = 'api_token='+ tokenFromFile + '&username=' + program.args[0];
-
-if (program.link) {
-	params += '&link=' + program.link;	
-}
-
-var options = {
-  url: url,
-	method: 'POST',
-	data: params
-};
-
-curl.request(options, function(err){
-	if (err)	{
-		console.log('Failed to send Yo:', err);
-		process.exit(1);
-	} else {
-		var finishStatement = 'Yo\'d ';
-		if (program.link) {
-		  finishStatement = 'Yo\'d a link to ';
-		}
-		if (program.all) {
-			finishStatement +='all subscribers.';
-		} else if (program.args[0]){
-			finishStatement += program.args[0];
-		}	
-		console.log(finishStatement);
-		process.exit(0);	
-	}
-});
